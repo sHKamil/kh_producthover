@@ -32,17 +32,22 @@ class kh_producthoverGetImagesModuleFrontController extends ModuleFrontControlle
     
     public function getSelected($productIds) {
         $id_lang = (int) $this->context->language->id;
+        $in = 0;
         $productImagesIds = [];
         foreach (explode(",", $productIds) as $id) {
             if(is_numeric($id) && (int)$id >= 0)
             {
                 $images = Image::getImages($id_lang, $id);
-                foreach ($images as $img){
-                    if($img['cover'] !== null) {
-                        $productImagesIds[$id]['cover_id'] = $img['id_image'];
-                    }else{
-                        $productImagesIds[$id]['id_image'][] = $img['id_image'];
+                if($images) {
+                    $productImagesIds[$in]['product_id'] = (int)$id;
+                    foreach ($images as $img){
+                        if($img['cover'] !== null) {
+                            $productImagesIds[$in]['cover_id'] = $img['id_image'];
+                        }else{
+                            $productImagesIds[$in]['id_image'][] = $img['id_image'];
+                        }
                     }
+                    $in++;
                 }
             }
         }

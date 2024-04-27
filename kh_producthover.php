@@ -57,7 +57,7 @@ class Kh_producthover extends Module
         return parent::install() &&
             $this->registerHook('header') &&
             $this->registerHook('displayBackOfficeHeader') &&
-            $this->registerHook('displayHeader');
+            $this->registerHook('displayHome');
     }
 
     public function uninstall()
@@ -172,7 +172,7 @@ class Kh_producthover extends Module
         $this->context->controller->addCSS($this->_path.'views/css/front.css');
     }
 
-    public function hookDisplayHeader()
+    public function hookDisplayHome()
     {
 
     }
