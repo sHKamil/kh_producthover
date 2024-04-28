@@ -26,6 +26,8 @@
 * to avoid any conflicts with others containers.
 */
 
+const URLPrefix = '/dni_probne_kh/';
+
 async function fetchAPI(url, method, data) {
     try {
         const response = await fetch(url, {
@@ -66,11 +68,11 @@ const addHoverEffect = (product) => {
             let img = card.querySelector('img');
             img.addEventListener("mouseover", async () => {
                 if(typeof product.id_image !== 'undefined') {
-                    changeImage('/' + product.id_image[0] + '-large_default/', img);
+                    changeImage(URLPrefix + product.id_image[0] + '-large_default/', img);
                 }
             });
             img.addEventListener("mouseout", async () => {
-                changeImage('/' + product.cover_id + '-large_default/', img);
+                changeImage(URLPrefix + product.cover_id + '-large_default/', img);
             });
         });
     }
@@ -91,7 +93,7 @@ const gatherProductIds = () => {
             ids += "," + el.getAttribute('data-id-product');
         });
         ids = ids.slice(1);
-        makeCoversReactive('/module/kh_producthover/GetImages?method=getSelected&ids=' + ids);
+        makeCoversReactive(URLPrefix + 'module/kh_producthover/GetImages?method=getSelected&ids=' + ids);
     }
 };
 gatherProductIds();
